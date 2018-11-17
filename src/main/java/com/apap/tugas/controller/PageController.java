@@ -10,9 +10,14 @@ import com.apap.tugas.model.UserRoleModel;
 public class PageController {
 	@RequestMapping("/")
 	public String home(Model model) {
+		return "home";
+	}
+	
+	@RequestMapping("/tambah")
+	public String tambahUser(Model model) {
 		UserRoleModel user = new UserRoleModel();
 		model.addAttribute("user",user);
-		return "home";
+		return "tambah-user";
 	}
 	
 	@RequestMapping("/login")

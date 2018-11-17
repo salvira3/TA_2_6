@@ -20,6 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
+			.antMatchers("/tambah").permitAll()
 			
 			.antMatchers("/daftar-request/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/daftar-ranap").hasAnyAuthority("ADMIN")
@@ -39,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	
 	/*
+	 *
+	 * 
 	@Autowired
 	public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
