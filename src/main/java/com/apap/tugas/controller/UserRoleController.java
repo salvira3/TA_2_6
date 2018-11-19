@@ -20,9 +20,9 @@ public class UserRoleController {
 	private String addUserSubmit(@ModelAttribute UserRoleModel user, Model model) {
 		String msg = "";
 		userService.addUser(user);
-		msg = "user berhasil dibuat";
+		msg = "User berhasil dibuat. Login untuk melanjutkan.";
 		model.addAttribute("msg",msg);
 		
-		return "home";
+		return "tambah-user";
 	}
 }

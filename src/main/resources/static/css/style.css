@@ -12,6 +12,9 @@ body {
 .padding-top {
 	padding-top: 150px;
 }
+.padding-bottom {
+	padding-bottom: 70px;
+}
 
 h2.title {
 	font-weight: 500;
