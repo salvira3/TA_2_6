@@ -1,9 +1,10 @@
 package com.apap.tugas.rest;
 
-public class BaseResponse {
+public class BaseResponse<T> {
 	
 	private int status;
     private String message;
+    private T result;
     
 	public int getStatus() {
 		return status;
@@ -17,4 +18,11 @@ public class BaseResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	public T getResult() {
+		return result;
+	}
+	public void setResult(T result) {
+		this.result = result;
+	}
+	
 }
