@@ -1,5 +1,6 @@
 package com.apap.tugas.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.apap.tugas.model.KamarModel;
+import com.apap.tugas.model.PaviliunModel;
 import com.apap.tugas.repository.KamarDb;
 
 @Service
@@ -20,6 +22,30 @@ public class KamarServiceImpl implements KamarService{
 	public List<KamarModel> getAll() {
 		// TODO Auto-generated method stub
 		return kamarDb.findAll();
+	}
+
+	@Override
+	public Optional<KamarModel> getKamarDetailById(long id) {
+		// TODO Auto-generated method stub
+		return kamarDb.findById(id);
+	}
+
+	@Override
+	public List<KamarModel> getKamarByPaviliun(PaviliunModel paviliun) {
+		// TODO Auto-generated method stub
+		List<KamarModel> kamar = kamarDb.findAll();
+		List<KamarModel> selectedKamar = new ArrayList<KamarModel>();
+		for (KamarModel e:kamar) {
+			if(e.getPaviliun().equals(paviliun)) {
+				if(e.getStatusKamar()==0) {
+					selectedKamar.add(e);
+				}
+			}
+		}
+		for(KamarModel e: selectedKamar) {
+			System.out.println(e.getStatusKamar());
+		}
+		return selectedKamar;
 	}
 	
 }

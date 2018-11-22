@@ -50,8 +50,5 @@ public class RequestPasienModel implements Serializable {
 	public void setAssignStatus(int assignStatus) {
 		this.assignStatus = assignStatus;
 	}
-	
-	
-	
 
 }

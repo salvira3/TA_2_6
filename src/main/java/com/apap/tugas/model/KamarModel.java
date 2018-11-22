@@ -24,9 +24,8 @@ public class KamarModel implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private long id;
 	
-	@NotNull
-	@Column(name = "id_pasien", nullable = false)
-	private long idPasien;
+	@Column(name = "id_pasien", nullable = true)
+	private Long idPasien;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="paviliun_id", referencedColumnName="id", nullable= false)
@@ -46,7 +45,7 @@ public class KamarModel implements Serializable{
 		this.id = id;
 	}
 
-	public long getIdPasien() {
+	public Long getIdPasien() {
 		return idPasien;
 	}
 

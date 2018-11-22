@@ -21,5 +21,11 @@ public class PaviliunServiceImpl implements PaviliunService{
 		// TODO Auto-generated method stub
 		return paviliunDb.findAll();
 	}
+
+	@Override
+	public Optional<PaviliunModel> getPaviliunDetailById(long id) {
+		// TODO Auto-generated method stub
+		return paviliunDb.findById(id);
+	}
 	
 }
