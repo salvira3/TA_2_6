@@ -26,6 +26,7 @@
 		     				<th>Nomor Kamar</th>
 		     				<th>Paviliun</th>
 		     				<th>Status</th>
+		     				<th>Detail</th>
 		     			</tr>
 		     		</thead>
 		     		
@@ -33,7 +34,15 @@
 		     			<tr  th:each  = "kamar : ${listKamar}" >
 		     				<td th:text="${kamar.paviliun.namaPaviliun} + ' - ' + ${kamar.id}"></td>
 		     				<td th:text="${kamar.paviliun.namaPaviliun}"></td>
-		     				<td th:text="${kamar.statusKamar}"></td>
+		     				<div th:switch="${kamar.statusKamar}"> 
+							  <td th:case="'0'">Inactive</td>
+							  <td th:case="'1'">Active</td>
+							</div>
+							<td>
+							<form th:action="@{/kamar/{idKamar} (idKamar=${kamar.id})}" th:method="GET">
+								<button class="btn btn-outline-success" type="submit">Detail</button>
+							</form>
+							</td>
 		     			</tr>
 		     		</tbody>
 			    </table>

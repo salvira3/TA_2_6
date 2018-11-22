@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +15,6 @@ import com.apap.tugas.model.KamarModel;
 import com.apap.tugas.model.PasienModel;
 import com.apap.tugas.model.PaviliunModel;
 import com.apap.tugas.model.RequestPasienModel;
-import com.apap.tugas.model.StatusPasienModel;
 import com.apap.tugas.service.KamarService;
 import com.apap.tugas.service.PaviliunService;
 import com.apap.tugas.service.RequestPasienService;
@@ -37,11 +35,6 @@ public class PasienController {
 	
 	@Autowired
 	RestTemplate restTemplate;
-	
-	@Bean
-	public RestTemplate rest() {
-		return new RestTemplate();
-	}
 	
 	@RequestMapping(value = "/daftar-request", method = RequestMethod.GET)
 		private String daftarRequest(Model model) throws IOException {

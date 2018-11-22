@@ -24,7 +24,6 @@ public class KamarModel implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Long id;
 	
-	@NotNull
 	@Column(name = "id_pasien", nullable = true)
 	private Long idPasien;
 	

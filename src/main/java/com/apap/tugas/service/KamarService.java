@@ -4,4 +4,5 @@ import com.apap.tugas.model.KamarModel;
 
 public interface KamarService {
 	List<KamarModel> getAll();
+	KamarModel getKamarById(Long id);
 }
