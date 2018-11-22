@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Daftar Kamar</title>
+    <link href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+	<link href = "https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+	<script src = "https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src = "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src = "https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <script src="/js/daftar-kamar.js"></script>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="container page-padding">
+		<h2>Daftar Kamar</h2>
+		<div class="row">
+			<div class="card-body">
+				<table id="tableKamar" class="table table-striped table-bordered" style="width:100%">
+		     		<thead>
+		     			<tr>	
+		     				<th>Nomor Kamar</th>
+		     				<th>Paviliun</th>
+		     				<th>Status Kamar</th>
+		     				<th>Detail</th>
+		     			</tr>
+		     		</thead>
+		     		
+		     		<tbody>
+		     			<tr  th:each  = "kamar : ${listKamar}" >
+		     				<td th:text="${kamar.paviliun.namaPaviliun} + ' - ' + ${kamar.id}"></td>
+		     				<td th:text="${kamar.paviliun.namaPaviliun}"></td>
+		     				<div th:switch="${kamar.statusKamar}"> 
+							  <td th:case="'0'">Kosong</td>
+							  <td th:case="'1'">Terisi</td>
+							</div>
+							<td>
+							<form th:action="@{/kamar/{idKamar} (idKamar=${kamar.id})}" th:method="GET">
+								<button class="btn btn-outline-success" type="submit">Detail</button>
+							</form>
+							</td>
+		     			</tr>
+		     		</tbody>
+			    </table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -47,5 +47,9 @@ public class KamarServiceImpl implements KamarService{
 		}
 		return selectedKamar;
 	}
+		public KamarModel getKamarById(Long id) {
+		// TODO Auto-generated method stub
+		return kamarDb.findById(id).get();
+	}
 	
 }
