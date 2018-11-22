@@ -25,7 +25,7 @@
 		     			<tr>	
 		     				<th>Nomor Kamar</th>
 		     				<th>Paviliun</th>
-		     				<th>Status</th>
+		     				<th>Status Kamar</th>
 		     				<th>Detail</th>
 		     			</tr>
 		     		</thead>
@@ -35,8 +35,8 @@
 		     				<td th:text="${kamar.paviliun.namaPaviliun} + ' - ' + ${kamar.id}"></td>
 		     				<td th:text="${kamar.paviliun.namaPaviliun}"></td>
 		     				<div th:switch="${kamar.statusKamar}"> 
-							  <td th:case="'0'">Inactive</td>
-							  <td th:case="'1'">Active</td>
+							  <td th:case="'0'">Kosong</td>
+							  <td th:case="'1'">Terisi</td>
 							</div>
 							<td>
 							<form th:action="@{/kamar/{idKamar} (idKamar=${kamar.id})}" th:method="GET">

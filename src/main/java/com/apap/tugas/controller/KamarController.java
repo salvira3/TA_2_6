@@ -54,7 +54,6 @@ public class KamarController {
 	@RequestMapping(value = "/{idKamar}", method = RequestMethod.GET)
 	private String detailKamar(@PathVariable(value = "idKamar") Long id, Model model) throws IOException {
 		KamarModel kamar = kamarService.getKamarById(id);
-		System.out.println(kamar.getIdPasien());
 		if(kamar.getIdPasien() == null) {
 			model.addAttribute("pasien" , "-");
 		}
