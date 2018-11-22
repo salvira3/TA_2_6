@@ -16,6 +16,7 @@ import com.apap.tugas.model.KamarModel;
 import com.apap.tugas.model.PasienModel;
 import com.apap.tugas.model.PaviliunModel;
 import com.apap.tugas.model.RequestPasienModel;
+import com.apap.tugas.model.StatusPasienModel;
 import com.apap.tugas.service.KamarService;
 import com.apap.tugas.service.PaviliunService;
 import com.apap.tugas.service.RequestPasienService;
@@ -47,47 +48,43 @@ public class PasienController {
 		List<RequestPasienModel> listReq = requestPasienService.getAll();
 		List<PasienModel> listDataPasien = new ArrayList<PasienModel>();
 		
-//		List<String> status = new ArrayList<String>();
-		
-		//DealerModel dealer = dealerService.getDealerDetailById(dealerId).get();
-		//sDealerDetail detail = restTemplate.postForObject(path, dealer, DealerDetail.class);
+
 		for(RequestPasienModel e: listReq) {
-			Long pasienIdTes = e.getIdPasien();
-			String path = "http://si-appointment.herokuapp.com/api/getPasien/"+pasienIdTes;
-			String responsenya = restTemplate.getForEntity(path, String.class).getBody();
-			ObjectMapper mapper = new ObjectMapper();
-			JsonNode node = mapper.readTree(responsenya);
-			JsonNode result = node.get("result");
-			System.out.println(result);
-			PasienModel pasienAsli = mapper.treeToValue(result, PasienModel.class);
-			System.out.println(pasienAsli.getNama());
-			listDataPasien.add(pasienAsli);
-			//listDataPasien.add(pasiennya);
-			//System.out.println(t.getJenisStatus());
-//			if(e.getAssign()==0) {
-//				status.add("pending");
-//			}
-//			if(e.getAssign()==1) {
-//				status.add("assigned");
-//			}
+			if(e.getAssignStatus()==0) {
+				Long pasienIdTes = e.getIdPasien();
+				PasienModel pasien = getPasienDataFromApi(pasienIdTes);
+//				StatusPasienModel status = new StatusPasienModel();
+//				status.setId(5);
+//				status.setJenis("Berada di Rawat Inap");
+//				pasienAsli.setStatusPasien(status);
+				listDataPasien.add(pasien);
+			}
 		}
-//		model.addAttribute("request", status);
 		model.addAttribute("pasien", listDataPasien);
 		return "daftar-request";
 	}
 	
-	@RequestMapping(value="/daftar-request/assign/{id}", method=RequestMethod.POST)
-		private String assignPasien(@PathVariable(value = "id") Long idPasien, Model model) {
+	@RequestMapping(value="/daftar-request/assign/{id}", method=RequestMethod.GET)
+		private String assignPasien(@PathVariable(value = "id") Long idPasien, Model model) throws IOException {
 			System.out.println("MASUK");
-			//PasienModel pasien = pasienService.getPasienDetailById(idPasien).get();
+			PasienModel pasien = getPasienDataFromApi(idPasien);
 			List<PaviliunModel> paviliun = paviliunService.getAll();
 			List<KamarModel> kamar = kamarService.getAll();
-			//model.addAttribute("pasien", pasien);
+			model.addAttribute("pasien", pasien);
 			model.addAttribute("paviliun", paviliun);
 			model.addAttribute("kamar", kamar);
 			return "assign-pasien";
 	}
 	
+	private PasienModel getPasienDataFromApi(long id) throws IOException {
+		String path = "http://si-appointment.herokuapp.com/api/getPasien/"+ id;
+		String responsenya = restTemplate.getForEntity(path, String.class).getBody();
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode node = mapper.readTree(responsenya);
+		JsonNode result = node.get("result");
+		PasienModel pasienAsli = mapper.treeToValue(result, PasienModel.class);
+		return pasienAsli;
+	}
 //	@RequestMapping(value="/daftar-ranap", method = RequestMethod.POST)
 //		private String assignPasienSubmit(@ModelAttribute Optional<PasienModel> pasien) {
 //			if(pasien.isPresent()) {
