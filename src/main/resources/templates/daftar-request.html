@@ -36,7 +36,7 @@
 								<td th:text="${pasien.nama}"></td>
 							<td th:text="${pasien.statusPasien.jenis}"></td>
  								<td>Pending</td>
-								<td th:action="@{/daftar-request/assign/{idPasien}(idPasien=${pasien.id})}" th:method="POST"><input class="btn btn-success" type="button" value="Assign"/></td>
+								<td ><a th:href="@{/daftar-request/assign/{idPasien}(idPasien=${pasien.id})}"><button class="btn btn-success">Assign</button></a></td>
 								</td>			
 							</tr>
 						</tbody>
