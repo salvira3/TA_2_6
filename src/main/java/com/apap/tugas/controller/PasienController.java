@@ -1,9 +1,11 @@
+
 package com.apap.tugas.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.apap.tugas.configuration.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -39,12 +41,14 @@ public class PasienController {
 	
 	@Autowired
 	private RequestPasienService requestPasienService;
-	
-	
-	RestTemplate restTemplate = new RestTemplate();
-	
-	
-	
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@Autowired
+	private Config config;
+
+
 	@RequestMapping(value = "/daftar-request", method = RequestMethod.GET)
 		private String daftarRequest(Model model) throws IOException {
 		List<RequestPasienModel> listReq = requestPasienService.getAll();

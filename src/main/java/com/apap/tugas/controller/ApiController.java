@@ -39,13 +39,11 @@ public class ApiController {
 		String path = "http://si-appointment.herokuapp.com/api/2/getAllPasien";
 		ListPasienRanap listPasien = restTemplate.getForObject(path, ListPasienRanap.class);
 		List<PasienModel> allPasienRanap = new ArrayList<>();
-		System.out.println(listPasien.getResult());
 		for (PasienModel pasien : listPasien.getResult()) {
 			if (pasien.getStatusPasien().getId() == 5) {
 				allPasienRanap.add(pasien);
 			}
 		}
-		System.out.println(allPasienRanap.size());
 		response.setStatus(200);
 		response.setMessage("success");
 		response.setResult(allPasienRanap);
@@ -57,11 +55,19 @@ public class ApiController {
 	public BaseResponse postPasienFromIgd(@RequestBody PasienIgdModel pasienMasuk, BindingResult bindingResult) throws IOException {
 		BaseResponse response = new BaseResponse();
 		System.out.println("masuk api daftar ranap");
+		for (RequestPasienModel listReqPasien : requestPasienDb.findAll()) {
+			if (pasienMasuk.getId() == listReqPasien.getIdPasien()) {
+				response.setStatus(500);
+				response.setMessage("error data");
+				return response;
+			}
+		}
 		if (bindingResult.hasErrors()) { 
 			response.setStatus(500);
             response.setMessage("error data");
 		}
 		else {
+			
 			RequestPasienModel reqPasien = new RequestPasienModel();
 			reqPasien.setAssignStatus(0); //0 belum diassign
 			reqPasien.setIdPasien(pasienMasuk.getId());
