@@ -29,14 +29,10 @@ public class KamarController {
 	@Autowired
 	private PaviliunService paviliunService;
 	
-	@Autowired
-	RestTemplate restTemplate;
 	
-	@Bean
-	public RestTemplate rest() {
-		return new RestTemplate();
-	}
+	RestTemplate restTemplate = new RestTemplate();
 	
+
 	@RequestMapping(value = "")
 	private String listKamar(Model model) {
 		List<KamarModel> listKamar = kamarService.getAll();
