@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+
+    <div class="container page-padding">
+		<h2>Tambah User Baru</h2>
+        <div class="row">
+        	<!-- Kalo udah punya user semua, ini dihapus ajaya form tambah user nya -->
+        	<!--  start tambah user -->
+            <div class="col-md-6">
+            	<p style="color:red" th:text="${msg}"></p>
+                <div class="card">
+                
+                    <div class="card-header">
+                        Tambah User Baru 
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/user/addUser}" method="POST">
+								<div class="row form-group">
+									<label class="col-sm-3">User Name</label>
+									<input class="col-sm-9 form-control input-sm" type="text" name="username" />
+								</div>
+								<div class="row form-group">
+									<label class="col-sm-3">Password</label>
+									<input class="col-sm-9 form-control input-sm" type="password" name="password" />
+									
+								</div>
+								<div class="row form-group">
+									<label class="col-sm-3">Role</label>
+									<select class="col-sm-9 form-control" name="role">
+										<option value="DOKTER">DOKTER</option>
+										<option value="ADMIN">ADMIN</option>
+									</select>
+								</div>
+								<div>
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
+							</form>
+                    </div>
+                    
+                </div>
+                <div style="padding: 15px 5px">
+                	<a th:href="@{/login}">Kembali ke halaman login</a>
+                </div>
+                
+            </div>
+            <!-- end tambah user -->
+        </div>
+        <br>
+        
+    </div>
+</body>
+</html>

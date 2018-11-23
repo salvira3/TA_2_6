@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Assign Pasien</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+    
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+    background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.registerbtn:hover {
+    opacity: 1;
+}
+}
+</style>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+
+<form th:action="@{/daftar-ranap}" th:object="${pasien}" method="POST">
+  <div class="container">
+    <h1>Assign Pasien</h1>
+    <hr>
+
+    <label for="nama"><b>Nama</b></label>
+    <p th:text="${pasien.nama}"></p>
+
+    <label for="paviliun"><b>Paviliun</b></label>
+    <select class="form-control" name="idPaviliun">
+	<option th:each="paviliun : ${paviliun}" th:value="${paviliun.id}" th:text="${paviliun.nama}"></option>
+	</select>
+    <label for="kamar"><b>Kamar</b></label>
+    <select class="form-control" name="idKamar">
+		<option th:each="kamar : ${kamar}" th:value="${kamar.id}" th:text="${kamar.id}"></option>
+	</select>
+ 	<br>
+    <button type="submit" class="registerbtn">Tambah</button>
+  </div>
+  
+</form>
+
+</body>
+</html>
