@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Daftar Kamar</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<style>
+	p {
+		display : inline-block;
+	
+	}
+
+</style>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="container page-padding">
+		<h2>Detail Penanganan</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+                        Detail Penanganan 
+                    </div>
+                    <div class="card-body">
+						<div class="row form-group">
+							<label class="col-sm-4">Nama Pasien</label>
+							<p th:text="': ' + ${pasien.nama}" name = "namaPasien"></p>
+						</div>
+						<div class="row form-group">
+							<label class="col-sm-4">Nama Dokter</label>
+							<p th:text="': ' + ${dokter.nama}" name="namaDokter"></p>
+						</div>
+						<div class="row form-group">
+							<label class="col-sm-4">Waktu Penanganan</label>
+							<p th:text="': ' + ${pemeriksaan.waktu}" name="waktuPenanganan"></p>
+						</div>
+						<div class="row form-group">
+							<label class="col-sm-4">Deskripsi Penanganan</label>
+							<p th:text="': ' + ${pemeriksaan.deskripsi}" name="deskripsiPenanganan"></p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

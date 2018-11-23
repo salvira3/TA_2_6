@@ -1,6 +1,8 @@
 package com.apap.tugas.model;
 
-public class StatusPasienModel {
+import java.io.Serializable;
+
+public class StatusPasienModel implements Serializable{
 	private long id;
 	private String jenis;
 	public long getId() {

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class PaviliunModel implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
-	private long id;
+	private Long id;
 	
 	@NotNull
 	@Size(max = 255)
@@ -37,17 +37,17 @@ public class PaviliunModel implements Serializable{
 	
 	@NotNull
 	@Column(name = "status_paviliun", nullable = false)
-	private int statusPaviliun;
+	private Integer statusPaviliun;
 	
 	@OneToMany(mappedBy = "paviliun", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JsonIgnore
 	private List<KamarModel> listKamar;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -67,11 +67,11 @@ public class PaviliunModel implements Serializable{
 		this.tipePasien = tipePasien;
 	}
 
-	public int getStatusPaviliun() {
+	public Integer getStatusPaviliun() {
 		return statusPaviliun;
 	}
 
-	public void setStatusPaviliun(int statusPaviliun) {
+	public void setStatusPaviliun(Integer statusPaviliun) {
 		this.statusPaviliun = statusPaviliun;
 	}
 

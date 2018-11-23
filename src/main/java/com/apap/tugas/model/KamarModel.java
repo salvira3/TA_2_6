@@ -22,11 +22,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class KamarModel implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
-	private long id;
+	private Long id;
 	
-	@NotNull
-	@Column(name = "id_pasien", nullable = false)
-	private long idPasien;
+	@Column(name = "id_pasien", nullable = true)
+	private Long idPasien;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="paviliun_id", referencedColumnName="id", nullable= false)
@@ -36,21 +35,21 @@ public class KamarModel implements Serializable{
 	
 	@NotNull
 	@Column(name = "status_kamar", nullable = false)
-	private int statusKamar;
+	private Integer statusKamar;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public long getIdPasien() {
+	public Long getIdPasien() {
 		return idPasien;
 	}
 
-	public void setIdPasien(long idPasien) {
+	public void setIdPasien(Long idPasien) {
 		this.idPasien = idPasien;
 	}
 
@@ -62,11 +61,11 @@ public class KamarModel implements Serializable{
 		this.paviliun = paviliun;
 	}
 
-	public int getStatusKamar() {
+	public Integer getStatusKamar() {
 		return statusKamar;
 	}
 
-	public void setStatusKamar(int statusKamar) {
+	public void setStatusKamar(Integer statusKamar) {
 		this.statusKamar = statusKamar;
 	}
 	

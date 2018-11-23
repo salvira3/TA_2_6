@@ -7,15 +7,21 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PasienModel implements Serializable {
-	private long id;
+	private Long id;
 	private String nama;
 	private Date tanggalRujukan;
 	private StatusPasienModel statusPasien;
-	private String poliRujukan;
+	private PoliRujukanModel poliRujukan;
+	public PoliRujukanModel getPoliRujukan() {
+		return poliRujukan;
+	}
+	public void setPoliRujukan(PoliRujukanModel poliRujukan) {
+		this.poliRujukan = poliRujukan;
+	}
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNama() {
@@ -35,12 +41,6 @@ public class PasienModel implements Serializable {
 	}
 	public void setStatusPasien(StatusPasienModel statusPasien) {
 		this.statusPasien = statusPasien;
-	}
-	public String getPoliRujukan() {
-		return poliRujukan;
-	}
-	public void setPoliRujukan(String poliRujukan) {
-		this.poliRujukan = poliRujukan;
 	}
 	
     

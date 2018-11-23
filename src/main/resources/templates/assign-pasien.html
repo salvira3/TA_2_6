@@ -65,27 +65,48 @@ hr {
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
 
-<form th:action="@{/daftar-ranap}" th:object="${pasien}" method="POST">
+<form th:action="@{/daftar-ranap}" method="POST">
   <div class="container">
     <h1>Assign Pasien</h1>
     <hr>
 
     <label for="nama"><b>Nama</b></label>
     <p th:text="${pasien.nama}"></p>
-
+	<input type="hidden" th:value="${pasien.id}" name="idPasien">
+	
     <label for="paviliun"><b>Paviliun</b></label>
-    <select class="form-control" name="idPaviliun">
-	<option th:each="paviliun : ${paviliun}" th:value="${paviliun.id}" th:text="${paviliun.nama}"></option>
+    <select class="form-control" name="idPaviliun" id="paviliun">
+	<option th:each="paviliun : ${paviliun}" th:value="${paviliun.id}" th:text="${paviliun.namaPaviliun}"></option>
 	</select>
     <label for="kamar"><b>Kamar</b></label>
-    <select class="form-control" name="idKamar">
-		<option th:each="kamar : ${kamar}" th:value="${kamar.id}" th:text="${kamar.id}"></option>
+    <select class="form-control" name="idKamar" id="kamar">
+		<option th:each="kamar : ${kamar}" th:value="${kamar.id}" th:text="'Kamar nomor '+${kamar.id}"></option>
 	</select>
  	<br>
     <button type="submit" class="registerbtn">Tambah</button>
   </div>
   
 </form>
-
 </body>
+<script th:inline="javascript">
+	$('#paviliun').change(
+	     function() {
+	    	 console.log($(this).val());
+	    	 value = $(this).val();
+	         $.getJSON("/paviliun/getKamarByPaviliun", {
+	             idPaviliun : value,
+	             ajax : 'true'
+	         }, function(data) {
+	             var html = '';
+	             var size = data.length;
+	             console.log(data)
+	             for ( var i = 0; i < size; i++) {
+	            	 console.log(data[i].nama)
+	                 html += '<option value="' + data[i].id + '">Kamar nomor ' + data[i].id + '</option>';
+	             }
+	             console.log(html)
+	             $('#kamar').html(html);
+	         });
+	     });
+	</script>
 </html>
