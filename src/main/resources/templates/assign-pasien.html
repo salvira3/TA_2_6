@@ -73,14 +73,14 @@ hr {
     <label for="nama"><b>Nama</b></label>
     <p th:text="${pasien.nama}"></p>
 	<input type="hidden" th:value="${pasien.id}" name="idPasien">
-	<input type="hidden" th:value="${pasien.statusPasien}" name="statusPasien">
+	
     <label for="paviliun"><b>Paviliun</b></label>
     <select class="form-control" name="idPaviliun" id="paviliun">
 	<option th:each="paviliun : ${paviliun}" th:value="${paviliun.id}" th:text="${paviliun.namaPaviliun}"></option>
 	</select>
     <label for="kamar"><b>Kamar</b></label>
     <select class="form-control" name="idKamar" id="kamar">
-		<option th:each="kamar : ${kamar}" th:value="${kamar.id}" th:text="${kamar.id}"></option>
+		<option th:each="kamar : ${kamar}" th:value="${kamar.id}" th:text="'Kamar nomor '+${kamar.id}"></option>
 	</select>
  	<br>
     <button type="submit" class="registerbtn">Tambah</button>
@@ -99,9 +99,12 @@ hr {
 	         }, function(data) {
 	             var html = '';
 	             var size = data.length;
+	             console.log(data)
 	             for ( var i = 0; i < size; i++) {
-	                 html += '<option value="' + data[i].id + '">' + data[i].nama + '</option>';
+	            	 console.log(data[i].nama)
+	                 html += '<option value="' + data[i].id + '">Kamar nomor ' + data[i].id + '</option>';
 	             }
+	             console.log(html)
 	             $('#kamar').html(html);
 	         });
 	     });
