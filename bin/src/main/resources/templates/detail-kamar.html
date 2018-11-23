@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Daftar Kamar</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<style>
+	p {
+		display : inline-block;
+	
+	}
+
+</style>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="container page-padding">
+		<h2>Detail Kamar</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+                        Detail Kamar 
+                    </div>
+                    <div class="card-body">
+						<div class="row form-group">
+							<label class="col-sm-4">Nomor Kamar</label>
+							<p th:text="': ' + ${kamar.paviliun.namaPaviliun} + '-' + ${kamar.id}" name="nomorKamar"></p>
+						</div>
+						<div class="row form-group">
+							<label class="col-sm-4">Nama Pasien</label>
+							<p th:text="': ' + ${pasien}" name="namaPasien"></p>
+						</div>
+						<div class="row form-group">
+							<label class="col-sm-4">Paviliun</label>
+							<p th:text="': ' + ${kamar.paviliun.namaPaviliun}" name="namaPaviliun"></p>
+						</div>
+						<div class="row form-group">
+							<label class="col-sm-4">Status</label>
+							<div th:switch="${kamar.statusKamar}"> 
+								<p th:case="'0'">: Kosong</p>
+								<p th:case="'1'">: Terisi</p>
+							</div>
+						</div>
+						<div>
+							<form th:action="@{/kamar/{idKamar} (idKamar=${kamar.id})}" th:method="POST">
+								<button class="btn btn-primary" type="submit">Update</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

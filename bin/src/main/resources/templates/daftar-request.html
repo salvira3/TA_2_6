@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Daftar Request</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+       	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+       	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js}"></script>
+       	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+       	<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+
+    <div class="container page-padding">
+        <h2>Daftar Request</h2>
+        <div class="row">
+        	<div class="card-body">
+					<table id="table_id2" class="display table table-striped" border = "I"  >
+					    <thead>
+					        <tr style = center>
+					            <th>Nama Pasien</th>
+					            <th>Status Pasien</th>
+					            <th>Status Assign Kamar</th>
+					            <th>Assign Pasien</th>
+					        </tr>
+					    </thead>
+					    
+						 <tbody>
+							<tr th:each="pasien, iterationStatus : ${pasien}">
+								<td th:text="${pasien.nama}"></td>
+							<td th:text="${pasien.statusPasien.jenis}"></td>
+ 								<td>Pending</td>
+								<td ><a th:href="@{/daftar-request/assign/{idPasien}(idPasien=${pasien.id})}"><button class="btn btn-success">Assign</button></a></td>
+								</td>			
+							</tr>
+						</tbody>
+					       
+					</table>
+				</div>
+        </div>
+        
+    </div>
+</body>
+</html>

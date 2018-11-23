@@ -44,7 +44,6 @@ public class ApiController {
 				allPasienRanap.add(pasien);
 			}
 		}
-		
 		response.setStatus(200);
 		response.setMessage("success");
 		response.setResult(allPasienRanap);

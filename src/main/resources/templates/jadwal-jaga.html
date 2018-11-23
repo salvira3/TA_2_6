@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Jadwal Jaga</title>
+    <object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container-fluid">
+        <table class="table">
+            <thead>
+                <th>Nama Dokter</th>
+                <th>Paviliun</th>
+                <th>Jadwal</th>
+            </thead>
+            <tbody>
+                <tr th:each="dokter:${listOfDokter}">
+                    <td th:text="${dokter.nama}">Gandi Karman Mangunsong</td>
+                    <td>Paviliun 1</td>
+                    <td>list of tanggal ( pop up )</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
