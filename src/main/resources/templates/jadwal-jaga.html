@@ -18,14 +18,9 @@
                 <th>Jadwal</th>
             </thead>
             <tbody>
-                <tr>
-                    <td>Gandi Karman Mangunsong</td>
+                <tr th:each="dokter:${listOfDokter}">
+                    <td th:text="${dokter.nama}">Gandi Karman Mangunsong</td>
                     <td>Paviliun 1</td>
-                    <td>list of tanggal ( pop up )</td>
-                </tr>
-                <tr>
-                    <td>Cemplunk Habibi</td>
-                    <td>Paviliun 2</td>
                     <td>list of tanggal ( pop up )</td>
                 </tr>
             </tbody>
