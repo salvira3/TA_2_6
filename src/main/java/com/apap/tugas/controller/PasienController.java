@@ -21,6 +21,7 @@ import com.apap.tugas.model.PasienModel;
 import com.apap.tugas.model.PaviliunModel;
 import com.apap.tugas.model.RequestPasienModel;
 import com.apap.tugas.model.StatusPasienModel;
+import com.apap.tugas.rest.BaseResponse;
 import com.apap.tugas.service.KamarService;
 import com.apap.tugas.service.PaviliunService;
 import com.apap.tugas.service.RequestPasienService;
@@ -80,7 +81,7 @@ public class PasienController {
 	}
 	
 	@RequestMapping(value="/daftar-ranap", method = RequestMethod.POST)
-	private String assignPasienSubmit(@RequestParam(value="idPasien") Long idPasien, @RequestParam(value="statusPasien") StatusPasienModel statusPasien, @RequestParam(value="idPaviliun") Long idPaviliun, @RequestParam(value="idKamar") Long idKamar) throws IOException {
+	private String assignPasienSubmit(@RequestParam(value="idPasien") Long idPasien, @RequestParam(value="idPaviliun") Long idPaviliun, @RequestParam(value="idKamar") Long idKamar) throws IOException {
 			KamarModel kamar = kamarService.getKamarDetailById(idKamar).get();
 			kamar.setIdPasien(idPasien);
 			kamar.setStatusKamar(1);
@@ -89,16 +90,16 @@ public class PasienController {
 				paviliun.setStatusPaviliun(1);
 			}
 			PasienModel pasien = getPasienDataFromApi(idPasien);
-			StatusPasienModel status = new StatusPasienModel();
-			status.setId(5);
-			status.setJenis("Berada di Rawat Inap");
-			pasien.setStatusPasien(status);
+			pasien.getStatusPasien().setId(5);
 			List<RequestPasienModel> listReq = requestPasienService.getAll();
 			for(RequestPasienModel e: listReq) {
 				if(e.getIdPasien()==idPasien) {
 					e.setAssignStatus(1);
 				}
 			}
+			String path = "http://si-appointment.herokuapp.com/api/2/updatePasien";
+			BaseResponse updated = restTemplate.postForObject(path, pasien, BaseResponse.class);
+			System.out.println(updated.getResult());
 		return "assign-pasien-success";
 	}
 
