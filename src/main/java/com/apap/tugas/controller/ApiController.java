@@ -1,9 +1,12 @@
 package com.apap.tugas.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,7 @@ import com.apap.tugas.model.PasienModel;
 import com.apap.tugas.model.RequestPasienModel;
 import com.apap.tugas.repository.RequestPasienDb;
 import com.apap.tugas.rest.BaseResponse;
+import com.apap.tugas.rest.ListPasienRanap;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,6 +31,27 @@ public class ApiController {
 	
 	
 	RestTemplate restTemplate = new RestTemplate();
+	
+	@GetMapping(value="/get-all-kamar")
+	public BaseResponse<List<PasienModel>> getAllPasienRanap() {
+		BaseResponse response = new BaseResponse();
+		//get all pasien
+		String path = "http://si-appointment.herokuapp.com/api/2/getAllPasien";
+		ListPasienRanap listPasien = restTemplate.getForObject(path, ListPasienRanap.class);
+		List<PasienModel> allPasienRanap = new ArrayList<>();
+		System.out.println(listPasien.getResult());
+		for (PasienModel pasien : listPasien.getResult()) {
+			if (pasien.getStatusPasien().getId() == 5) {
+				allPasienRanap.add(pasien);
+			}
+		}
+		System.out.println(allPasienRanap.size());
+		response.setStatus(200);
+		response.setMessage("success");
+		response.setResult(allPasienRanap);
+		return response;
+	}
+	
 	
 	@PostMapping(value = "/daftar-ranap")
 	public BaseResponse postPasienFromIgd(@RequestBody PasienIgdModel pasienMasuk, BindingResult bindingResult) throws IOException {
@@ -47,12 +72,8 @@ public class ApiController {
 			System.out.println(pasienMasuk.getId()+"<-pasienMasuk getId");
 			String path = "http://si-appointment.herokuapp.com/api/2/updatePasien";
 			PasienModel pasienUpdate = getPasienDataFromApi(pasienMasuk.getId());
-			System.out.println(pasienUpdate.getId());
-			System.out.println(pasienUpdate.getNama());
-			System.out.println(pasienUpdate.getTanggalRujukan());
-			System.out.println(pasienUpdate.getPoliRujukan());
-			System.out.println(pasienUpdate.getStatusPasien().getId());
 			pasienUpdate.getStatusPasien().setId(4);
+			pasienUpdate.getStatusPasien().setJenis("Mendaftar di Rawat Inap");
 			BaseResponse updated = restTemplate.postForObject(path, pasienUpdate, BaseResponse.class);
 			System.out.println(updated.getResult());
 			

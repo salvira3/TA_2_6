@@ -39,13 +39,10 @@ public class PasienController {
 	@Autowired
 	private RequestPasienService requestPasienService;
 	
-	@Autowired
-	RestTemplate restTemplate;
 	
-	@Bean
-	public RestTemplate rest() {
-		return new RestTemplate();
-	}
+	RestTemplate restTemplate = new RestTemplate();
+	
+	
 	
 	@RequestMapping(value = "/daftar-request", method = RequestMethod.GET)
 		private String daftarRequest(Model model) throws IOException {
