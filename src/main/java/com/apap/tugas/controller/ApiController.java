@@ -39,13 +39,12 @@ public class ApiController {
 		String path = "http://si-appointment.herokuapp.com/api/2/getAllPasien";
 		ListPasienRanap listPasien = restTemplate.getForObject(path, ListPasienRanap.class);
 		List<PasienModel> allPasienRanap = new ArrayList<>();
-		System.out.println(listPasien.getResult());
 		for (PasienModel pasien : listPasien.getResult()) {
 			if (pasien.getStatusPasien().getId() == 5) {
 				allPasienRanap.add(pasien);
 			}
 		}
-		System.out.println(allPasienRanap.size());
+		
 		response.setStatus(200);
 		response.setMessage("success");
 		response.setResult(allPasienRanap);

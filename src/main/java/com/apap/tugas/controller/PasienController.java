@@ -21,6 +21,7 @@ import com.apap.tugas.model.PasienModel;
 import com.apap.tugas.model.PaviliunModel;
 import com.apap.tugas.model.RequestPasienModel;
 import com.apap.tugas.model.StatusPasienModel;
+import com.apap.tugas.repository.RequestPasienDb;
 import com.apap.tugas.rest.BaseResponse;
 import com.apap.tugas.service.KamarService;
 import com.apap.tugas.service.PaviliunService;
@@ -38,6 +39,9 @@ public class PasienController {
 	private KamarService kamarService;
 	
 	@Autowired
+	private RequestPasienDb reqPasDb;
+	
+	@Autowired
 	private RequestPasienService requestPasienService;
 	
 	
@@ -53,6 +57,7 @@ public class PasienController {
 
 		for(RequestPasienModel e: listReq) {
 			if(e.getAssignStatus()==0) {
+				
 				Long pasienIdTes = e.getIdPasien();
 				PasienModel pasien = getPasienDataFromApi(pasienIdTes);
 				listDataPasien.add(pasien);
@@ -91,15 +96,18 @@ public class PasienController {
 			}
 			PasienModel pasien = getPasienDataFromApi(idPasien);
 			pasien.getStatusPasien().setId(5);
+			pasien.getStatusPasien().setJenis("Berada di Rawat Inap");
 			List<RequestPasienModel> listReq = requestPasienService.getAll();
 			for(RequestPasienModel e: listReq) {
-				if(e.getIdPasien()==idPasien) {
+				if(e.getIdPasien()==pasien.getId()) {
 					e.setAssignStatus(1);
+					reqPasDb.save(e);
+					
 				}
 			}
 			String path = "http://si-appointment.herokuapp.com/api/2/updatePasien";
 			BaseResponse updated = restTemplate.postForObject(path, pasien, BaseResponse.class);
-			System.out.println(updated.getResult());
+			
 		return "assign-pasien-success";
 	}
 
