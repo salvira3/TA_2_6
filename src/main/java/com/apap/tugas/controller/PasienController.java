@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.apap.tugas.configuration.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -38,11 +39,9 @@ public class PasienController {
 	@Autowired
 	RestTemplate restTemplate;
 	
-	@Bean
-	public RestTemplate rest() {
-		return new RestTemplate();
-	}
-	
+	@Autowired
+	Config config;
+
 	@RequestMapping(value = "/daftar-request", method = RequestMethod.GET)
 		private String daftarRequest(Model model) throws IOException {
 		List<RequestPasienModel> listReq = requestPasienService.getAll();
