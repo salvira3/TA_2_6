@@ -10,4 +10,5 @@ public interface KamarService {
 	Optional<KamarModel> getKamarDetailById(long id);
 	List<KamarModel> getKamarByPaviliun(PaviliunModel paviliun);
 	KamarModel getKamarById(Long id);
+	void addKamar(KamarModel kamar);
 }

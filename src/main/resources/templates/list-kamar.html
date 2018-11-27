@@ -14,8 +14,51 @@
     <script src="/js/daftar-kamar.js"></script>
 </head>
 
+<style>
+	p {
+		display : inline-block;
+	}
+	
+</style>
+
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="container page-padding">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+                        Tambah Kamar 
+                    </div>
+					<div class="card-body">
+						<form th:action="@{/kamar/insert}" th:object=${kamar} method="POST">
+							<div class="row form-group">
+								<label class="col-sm-3">Paviliun</label>
+								<div class="col-sm-9">
+									<select class="form-control" name="paviliun">
+										<option disabled="disabled" selected="selected" >Pilih Paviliun</option>
+									    <option th:each="paviliun : ${listPaviliun}" th:value="${paviliun.id}" th:text="${paviliun.namaPaviliun}"/>
+									</select>
+								</div>
+							</div>
+							<div class="row form-group">
+								<label class="col-sm-3">Status</label>
+								<div class="col-sm-9">
+									<select class="form-control" name="statusKamar" readonly>
+									    <option th:value="0" selected="selected" th:text="'Kosong'"/>
+									</select>
+								</div>
+							</div>
+							<div>
+								<button type="submit" class="btn btn-primary">Tambah</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
 	<div class="container page-padding">
 		<h2>Daftar Kamar</h2>
 		<div class="row">

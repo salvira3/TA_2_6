@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,16 +35,23 @@ public class KamarController {
 
 	@RequestMapping(value = "")
 	private String listKamar(Model model) {
+		List<PaviliunModel> listPaviliun = paviliunService.getAll();
+		model.addAttribute("listPaviliun" , listPaviliun);
 		List<KamarModel> listKamar = kamarService.getAll();
 		model.addAttribute("listKamar" , listKamar);
+		model.addAttribute("message" , "hidden");
 		return "list-kamar";
 	}
 	
-	@RequestMapping(value = "/insert")
-	private String addKamar(Model model) {
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	private String addKamar(@ModelAttribute KamarModel kamar , Model model) {
+		kamarService.addKamar(kamar);
 		List<PaviliunModel> listPaviliun = paviliunService.getAll();
 		model.addAttribute("listPaviliun" , listPaviliun);
-		return "add-kamar";
+		List<KamarModel> listKamar = kamarService.getAll();
+		model.addAttribute("listKamar" , listKamar);
+		model.addAttribute("message" , "success");
+		return "list-kamar";
 	}
 	
 	@RequestMapping(value = "/{idKamar}", method = RequestMethod.GET)

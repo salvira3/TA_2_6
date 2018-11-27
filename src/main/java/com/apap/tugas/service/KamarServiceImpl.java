@@ -51,5 +51,11 @@ public class KamarServiceImpl implements KamarService{
 		// TODO Auto-generated method stub
 		return kamarDb.findById(id).get();
 	}
+
+		@Override
+		public void addKamar(KamarModel kamar) {
+			// TODO Auto-generated method stub
+			kamarDb.save(kamar);
+		}
 	
 }
