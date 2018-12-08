@@ -57,5 +57,13 @@ public class KamarServiceImpl implements KamarService{
 			// TODO Auto-generated method stub
 			kamarDb.save(kamar);
 		}
+
+		@Override
+		public void updateKamar(KamarModel kamar, Long id) {
+			// TODO Auto-generated method stub
+			KamarModel kamar1 = kamarDb.getOne(id);
+			kamar1.setPaviliun(kamar.getPaviliun());
+			kamarDb.save(kamar1);
+		}
 	
 }

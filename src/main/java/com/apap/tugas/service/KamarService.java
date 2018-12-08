@@ -7,8 +7,14 @@ import com.apap.tugas.model.PaviliunModel;
 
 public interface KamarService {
 	List<KamarModel> getAll();
+	
 	Optional<KamarModel> getKamarDetailById(long id);
+	
 	List<KamarModel> getKamarByPaviliun(PaviliunModel paviliun);
+	
 	KamarModel getKamarById(Long id);
+	
 	void addKamar(KamarModel kamar);
+	
+	void updateKamar(KamarModel kamar, Long id);
 }
