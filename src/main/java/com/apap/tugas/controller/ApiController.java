@@ -55,13 +55,7 @@ public class ApiController {
 	public BaseResponse postPasienFromIgd(@RequestBody PasienIgdModel pasienMasuk, BindingResult bindingResult) throws IOException {
 		BaseResponse response = new BaseResponse();
 		System.out.println("masuk api daftar ranap");
-		for (RequestPasienModel listReqPasien : requestPasienDb.findAll()) {
-			if (pasienMasuk.getId() == listReqPasien.getIdPasien()) {
-				response.setStatus(500);
-				response.setMessage("error data");
-				return response;
-			}
-		}
+		
 		if (bindingResult.hasErrors()) { 
 			response.setStatus(500);
             response.setMessage("error data");
