@@ -1,7 +1,6 @@
 package com.apap.tugas.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,19 +17,23 @@ import org.springframework.web.servlet.ModelAndView;
 import com.apap.tugas.model.DokterModel;
 import com.apap.tugas.model.ObatModel;
 import com.apap.tugas.model.PasienModel;
+import com.apap.tugas.model.PemeriksaanDataModel;
 import com.apap.tugas.model.PemeriksaanModel;
+import com.apap.tugas.repository.PemeriksaanDb;
 import com.apap.tugas.rest.BaseResponse;
 import com.apap.tugas.service.PemeriksaanService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
+
 
 @Controller
 public class PemeriksaanController {
 	RestTemplate restTemplate = new RestTemplate();
-	
 	@Autowired
 	PemeriksaanService pemeriksaanService; 
+	@Autowired
+	PemeriksaanDb pemeriksaanDB;
 	
 	@RequestMapping(value="/penanganan")
 	private String penanganan(Model model) throws IOException {
@@ -69,16 +72,52 @@ public class PemeriksaanController {
 	}
 	
 	@RequestMapping(value = "/penanganan/{idPasien}", method = RequestMethod.GET)
-	private String penangananPasien(@PathVariable (value ="idPasien") long idPasien , Model model) throws IOException {
+
+	private String daftarRequest(@PathVariable (value ="idPasien") long idPasien , Model model) throws IOException {
+		//PemeriksaanModel pemeriksaan = pemeriksaanService.getPemeriksaanDetailByIdPasien(idPasien);
+		
+		List<PemeriksaanDataModel> myPemeriksaan = new ArrayList<>();
+		for (PemeriksaanModel pemeriksaannya : pemeriksaanDB.findAll()) {
+			if (pemeriksaannya.getIdPasien().equals(idPasien)) {
+				
+				PemeriksaanDataModel data = new PemeriksaanDataModel();
+				data.setDeskripsi(pemeriksaannya.getDeskripsi());
+				data.setWaktu(pemeriksaannya.getWaktu());
+				data.setDokter(getDokterDataFromApi(pemeriksaannya.getIdDokter()));
+				data.setIdPasien(pemeriksaannya.getIdPasien());
+				data.setIdPemeriksaan(pemeriksaannya.getId());
+				myPemeriksaan.add(data);
+			}
+		}
+		PasienModel pasien = getPasienDataFromApi(idPasien);
+		model.addAttribute("listPemeriksaan", myPemeriksaan);
+		return "lihat-pemeriksaan";
+	
+	}	
+	@RequestMapping(value = "/penanganan/{idPasien}/{idPenanganan}", method = RequestMethod.GET)
+	public String tambahPasien (@PathVariable (value ="idPasien") long idPasien , @PathVariable (value ="idPenanganan") long idPenanganan, Model model) throws IOException {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.getPemeriksaanDetailByIdPasien(idPasien);
 		PasienModel pasien = getPasienDataFromApi(idPasien);
-		System.out.println("id dokter->"+pemeriksaan.getIdDokter());
-		DokterModel dokter = getDokterDataFromApi(pemeriksaan.getIdDokter());
-		
-		model.addAttribute("dokter" , dokter);
+		List<DokterModel> listDokter = getAllDokterDataFromApi();
+		String namaDokter = getDokterDataFromApi(pemeriksaan.getIdDokter()).getNama();
+		System.out.println(pemeriksaan.getIdPasien());
+		System.out.println("nama =>"+pasien.getNama());
+		model.addAttribute("dokter" , listDokter);
+		model.addAttribute("namaDokter", namaDokter);
 		model.addAttribute("pasien" , pasien);
 		model.addAttribute("pemeriksaan", pemeriksaan);
-		return "lihat-pemeriksaan";
+		return "ubahPenanganan";
+	
+	}	
+	@RequestMapping(value = "/penanganan/{idPasien}/{idPenanganan}", method = RequestMethod.POST)
+	public String tambahPasienn (@ModelAttribute PemeriksaanModel pemeriksa, @PathVariable (value ="idPasien") long idPasien, @PathVariable (value ="idPenanganan") long idPenanganan, Model model) throws IOException {
+		pemeriksaanService.updatePenanganan(idPasien, pemeriksa);
+		PasienModel pasien = getPasienDataFromApi(idPasien);
+		DokterModel dokter = getDokterDataFromApi(pemeriksa.getIdDokter());		
+		model.addAttribute("dokter" , dokter);
+		model.addAttribute("pasien" , pasien);
+		model.addAttribute("pemeriksa", pemeriksa);
+		return "redirect:/penanganan/{idPasien}";
 	
 	}	
 	private PasienModel getPasienDataFromApi(long id) throws IOException {
