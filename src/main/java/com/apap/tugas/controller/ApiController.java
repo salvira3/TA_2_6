@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,10 +56,23 @@ public class ApiController {
 	public BaseResponse postPasienFromIgd(@RequestBody PasienIgdModel pasienMasuk, BindingResult bindingResult) throws IOException {
 		BaseResponse response = new BaseResponse();
 		System.out.println("masuk api daftar ranap");
-		
-		if (bindingResult.hasErrors()) { 
+		for (RequestPasienModel listReqPasien : requestPasienDb.findAll()) {
+			if (pasienMasuk.getId() == listReqPasien.getIdPasien()) {
+				List<ObjectError> errorku = bindingResult.getAllErrors();
+				response.setStatus(500);
+				response.setMessage("error data");
+				response.setResult(errorku);
+				System.out.println("for");
+				return response;
+			}
+		}
+		if (pasienMasuk.equals(null) || pasienMasuk.getId() <= 0) { 
+			System.out.println("binding");
 			response.setStatus(500);
+			List<ObjectError> errorku = bindingResult.getAllErrors();
+			
             response.setMessage("error data");
+            response.setResult(errorku);
 		}
 		else {
 			
