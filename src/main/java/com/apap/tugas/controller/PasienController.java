@@ -63,8 +63,6 @@ public class PasienController {
 		private String daftarRequest(Model model) throws IOException {
 		List<RequestPasienModel> listReq = requestPasienService.getAll();
 		List<PasienModel> listDataPasien = new ArrayList<PasienModel>();
-		
-
 		for(RequestPasienModel e: listReq) {
 			if(e.getAssignStatus()==0) {
 				
@@ -72,6 +70,9 @@ public class PasienController {
 				PasienModel pasien = getPasienDataFromApi(pasienIdTes);
 				listDataPasien.add(pasien);
 			}
+		}
+		if(listDataPasien.isEmpty()) {
+			model.addAttribute("msg1", "Tidak ada Pasien Rujukan.");
 		}
 		model.addAttribute("pasien", listDataPasien);
 		return "daftar-request";

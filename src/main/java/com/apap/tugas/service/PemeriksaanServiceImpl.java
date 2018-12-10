@@ -30,6 +30,8 @@ public class PemeriksaanServiceImpl implements PemeriksaanService {
 		temp.setIdDokter(newPemeriksaan.getIdDokter());
 		temp.setDeskripsi(newPemeriksaan.getDeskripsi());
 		temp.setWaktu(newPemeriksaan.getWaktu());
+		temp.setObat(newPemeriksaan.getObat());
+		temp.setKuantitas(newPemeriksaan.getKuantitas());
 		
 		pemeriksaanDb.save(temp);
 	}
