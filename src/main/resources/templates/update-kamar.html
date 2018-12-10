@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Update Kamar</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="container page-padding">
+		<h2>Update Kamar</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+                        Update Kamar 
+                    </div>
+					<div class="card-body">
+						<form th:action="@{/kamar/submit/{idKamar} (idKamar=${kamar.id})}" th:object=${kamar} method="POST">
+							<div class="row form-group">
+								<label class="col-sm-4">Nomor Kamar</label>
+								<p th:text="': ' + ${kamar.paviliun.namaPaviliun} + '-' + ${kamar.id}"></p>
+							</div>
+							<div class="row form-group">
+								<label class="col-sm-4">Nama Pasien</label>
+								<p th:text="': ' + ${pasien}" name="namaPasien"></p>
+							</div>
+							<div class="row form-group">
+								<label class="col-sm-4">Paviliun</label>
+								<div class="col-sm-8">
+									<select class="form-control" name="paviliun">
+										<option disabled="disabled" selected="selected" >Pilih Paviliun</option>
+									    <option th:each="paviliun : ${listPaviliun}" th:value="${paviliun.id}" th:text="${paviliun.namaPaviliun}"/>
+									</select>
+								</div>
+							</div>
+							<div class="row form-group">
+								<label class="col-sm-4">Status</label>
+								<div th:switch="${kamar.statusKamar}" name="statusKamar"> 
+									<p th:case="'0'">: Kosong</p>
+									<p th:case="'1'">: Terisi</p>
+								</div>
+							</div>
+							<div>
+								<form th:action="@{/kamar/submit/{idKamar} (idKamar=${kamar.id})}" th:method="POST">
+									<button class="btn btn-primary" type="submit">Submit</button>
+								</form>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
