@@ -71,6 +71,9 @@ public class PasienController {
 				listDataPasien.add(pasien);
 			}
 		}
+		if(listDataPasien.isEmpty()) {
+			model.addAttribute("msg1", "Tidak ada Pasien Rujukan.");
+		}
 		model.addAttribute("pasien", listDataPasien);
 		return "daftar-request";
 	}
