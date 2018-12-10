@@ -36,6 +36,30 @@ public class PemeriksaanModel implements Serializable{
 	@Column(name = "deskripsi", nullable = false)
 	private String deskripsi;
 
+	@Size(max = 255)
+	@Column(name = "obat", nullable = true)
+	private String obat;
+	
+	@Column(name = "kuantitas", nullable = true)
+	private Integer kuantitas;
+	
+	public Integer getKuantitas() {
+		return kuantitas;
+	}
+
+
+	public String getObat() {
+		return obat;
+	}
+
+	 public void setKuantitas(Integer kuantitas) {
+	  this.kuantitas = kuantitas;
+	 }
+
+	 public void setObat(String obat) {
+	  this.obat = obat;
+	 }
+
 	public long getId() {
 		return id;
 	}

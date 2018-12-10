@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Penanganan</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<style>
+	p {
+		display : inline-block;
+	
+	}
+
+</style>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="container page-padding">
+		<h2>Tambah Penanganan</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+                        Tekan tombol ini untuk membuat penanganan 
+                    </div>
+                    <div class="card-body">
+						<div class="row form-group">
+							<a th:href="@{/penanganan/insert}"><button type="submit" class="btn btn-success btn-block btn-lg">Tambah</button></a>
+						</div>
+					</div>
+				</div>
+				<br>
+				<br>
+				<br>
+				<div class="card">
+					<div class="card-header">Lihat Data Penanganan Pasien Berdasarkan ID</div>
+					<form th:action="@{/penanganan/cari}"  th:method="GET">
+						<div class="card-body">
+							<label for="idPasien">Masukkan ID Pasien</label> 
+							<input type="number" name="idPasien" class="form-control" />
+							<button type="submit" class="btn btn-primary btn-succcess">Lihat</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

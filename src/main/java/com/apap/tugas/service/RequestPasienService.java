@@ -4,4 +4,6 @@ import com.apap.tugas.model.RequestPasienModel;
 
 public interface RequestPasienService {
 	List<RequestPasienModel> getAll();
+	
+	List<RequestPasienModel> getPasienAssigned();
 }

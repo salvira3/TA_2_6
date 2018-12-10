@@ -7,4 +7,7 @@ import com.apap.tugas.model.PemeriksaanModel;
 @Repository
 public interface PemeriksaanDb extends JpaRepository<PemeriksaanModel, Long> {
 
+	
+
+
 }
