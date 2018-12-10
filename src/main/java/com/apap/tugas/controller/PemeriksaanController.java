@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.apap.tugas.model.DokterModel;
+import com.apap.tugas.model.KamarModel;
 import com.apap.tugas.model.MedicalSuppliesModel;
 import com.apap.tugas.model.ObatModel;
 import com.apap.tugas.model.PasienModel;
@@ -25,6 +26,7 @@ import com.apap.tugas.model.RequestObatModel;
 import com.apap.tugas.repository.PemeriksaanDb;
 import com.apap.tugas.rest.BaseResponse;
 import com.apap.tugas.rest.Setting;
+import com.apap.tugas.service.KamarService;
 import com.apap.tugas.service.PemeriksaanService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -38,6 +40,10 @@ public class PemeriksaanController {
 	RestTemplate restTemplate = new RestTemplate();
 	@Autowired
 	PemeriksaanService pemeriksaanService; 
+	
+	@Autowired
+	KamarService kamarService; 
+	
 	@Autowired
 	PemeriksaanDb pemeriksaanDB;
 	
@@ -55,12 +61,13 @@ public class PemeriksaanController {
 	@RequestMapping(value="/penanganan/insert", method = RequestMethod.GET)
 	private String insertPenanganan(Model model) throws IOException {
 		List<DokterModel> listDokter = getAllDokterDataFromApi();
-		List<PasienModel> listPasien = getAllPasienDataFromApi();
+		List<KamarModel> listKamar = kamarService.getAll();
 		List<PasienModel> listPasienRanap = new ArrayList<PasienModel>();
-		for (PasienModel e: listPasien) {
-			long tmp = e.getStatusPasien().getId();
-			if(tmp==5) {
-				listPasienRanap.add(e);
+		for(KamarModel e: listKamar) {
+			int tmp = e.getStatusKamar();
+			if(tmp==1) {
+				PasienModel pasien = getPasienDataFromApi(e.getIdPasien());
+				listPasienRanap.add(pasien);
 			}
 		}
 		PemeriksaanModel pemeriksaan = new PemeriksaanModel();
@@ -84,6 +91,7 @@ public class PemeriksaanController {
 		reqObat.setIdPasien(pemeriksaan.getIdPasien());
 		reqObat.setListPermintaanMedicalSupplies(medSupp);
 		String path = Setting.requestObatUrl;
+		
 		BaseResponse insert = restTemplate.postForObject(path, reqObat, BaseResponse.class);
 		System.out.println("result" + insert.getResult());
 		pemeriksaanService.add(pemeriksaan);
