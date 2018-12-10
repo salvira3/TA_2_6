@@ -47,17 +47,18 @@ public class PemeriksaanModel implements Serializable{
 		return kuantitas;
 	}
 
-	public void setKuantitas(Integer kuantitas) {
-		this.kuantitas = kuantitas;
-	}
 
 	public String getObat() {
 		return obat;
 	}
 
-	public void setObat(String obat) {
-		this.obat = obat;
-	}
+	 public void setKuantitas(Integer kuantitas) {
+	  this.kuantitas = kuantitas;
+	 }
+
+	 public void setObat(String obat) {
+	  this.obat = obat;
+	 }
 
 	public long getId() {
 		return id;

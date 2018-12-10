@@ -18,7 +18,6 @@ import com.apap.tugas.model.DokterModel;
 import com.apap.tugas.model.MedicalSuppliesModel;
 import com.apap.tugas.model.ObatModel;
 import com.apap.tugas.model.PasienModel;
-import com.apap.tugas.model.PemeriksaanDataModel;
 import com.apap.tugas.model.PemeriksaanModel;
 import com.apap.tugas.model.RequestObatModel;
 import com.apap.tugas.repository.PemeriksaanDb;
@@ -91,28 +90,16 @@ public class PemeriksaanController {
 //	}
 	
 	@RequestMapping(value = "/penanganan/{idPasien}", method = RequestMethod.GET)
-
-	private String daftarRequest(@PathVariable (value ="idPasien") long idPasien , Model model) throws IOException {
-		//PemeriksaanModel pemeriksaan = pemeriksaanService.getPemeriksaanDetailByIdPasien(idPasien);
-		
-		List<PemeriksaanDataModel> myPemeriksaan = new ArrayList<>();
-		for (PemeriksaanModel pemeriksaannya : pemeriksaanDB.findAll()) {
-			if (pemeriksaannya.getIdPasien().equals(idPasien)) {
-				
-				PemeriksaanDataModel data = new PemeriksaanDataModel();
-				data.setDeskripsi(pemeriksaannya.getDeskripsi());
-				data.setWaktu(pemeriksaannya.getWaktu());
-				data.setDokter(getDokterDataFromApi(pemeriksaannya.getIdDokter()));
-				data.setIdPasien(pemeriksaannya.getIdPasien());
-				data.setIdPemeriksaan(pemeriksaannya.getId());
-				myPemeriksaan.add(data);
-			}
-		}
-		PasienModel pasien = getPasienDataFromApi(idPasien);
-		model.addAttribute("listPemeriksaan", myPemeriksaan);
-		return "lihat-pemeriksaan";
-	
-	}	
+	 private String daftarRequest(@PathVariable (value ="idPasien") long idPasien , Model model) throws IOException {
+	  PemeriksaanModel pemeriksaan = pemeriksaanService.getPemeriksaanDetailByIdPasien(idPasien);
+	  PasienModel pasien = getPasienDataFromApi(idPasien);
+	  DokterModel dokter = getDokterDataFromApi(pemeriksaan.getIdDokter());
+	  model.addAttribute("dokter" , dokter);
+	  model.addAttribute("pasien" , pasien);
+	  model.addAttribute("pemeriksaan", pemeriksaan);
+	  return "lihat-pemeriksaan";
+	 
+	 }	
 	@RequestMapping(value = "/penanganan/{idPasien}/{idPenanganan}", method = RequestMethod.GET)
 	public String tambahPasien (@PathVariable (value ="idPasien") long idPasien , @PathVariable (value ="idPenanganan") long idPenanganan, Model model) throws IOException {
 		PemeriksaanModel pemeriksaan = pemeriksaanService.getPemeriksaanDetailByIdPasien(idPasien);
@@ -121,6 +108,7 @@ public class PemeriksaanController {
 		String namaDokter = getDokterDataFromApi(pemeriksaan.getIdDokter()).getNama();
 		System.out.println(pemeriksaan.getIdPasien());
 		System.out.println("nama =>"+pasien.getNama());
+		System.out.println("Dokter"+ namaDokter);
 		model.addAttribute("dokter" , listDokter);
 		model.addAttribute("namaDokter", namaDokter);
 		model.addAttribute("pasien" , pasien);

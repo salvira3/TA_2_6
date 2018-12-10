@@ -1,49 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-	<title>Ubah Penanganan</title>
-	
-	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
-	<object th:include="fragments/fragment :: js" th:remove="tag"></object>	
+    <title>Detail Kamar</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
+
+<style>
+	p {
+		display : inline-block;
+	
+	}
+
+</style>
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
-	
-
-			<div class="card border-info mb-3" style="margin:25px;">
-				<div class="card-header" style="text-align:center">
-					 <h3>Lihat Penanganan</h3>
-				</div>
-				<div class="card-body">
-					<div class="container">
-						<table id="table_id2" class="display table table-striped" border = "I"  >
-					    <thead>
-					        <tr style = center>
-					            <th>Nama Dokter</th>
-					            <th>Waktu</th>
-					            <th>Deskripsi</th>
-					            <th>Aksi</th>
-					        </tr>
-					    </thead>
-					    
-						 <tbody>
-						 	
-							<tr th:each="pemeriksaan, iterationStatus : ${listPemeriksaan}">
-								<td th:text="${pemeriksaan.dokter.nama}"></td>
-								<td th:text="${pemeriksaan.waktu}"></td>
-								<td th:text="${pemeriksaan.deskripsi}"></td>
- 								<td>
- 									<a th:href="@{'/penanganan/' +${idPasien}+'/'+${pemeriksaan.idPemeriksaan}}"><button class="btn btn-success btn-rounded">Ubah</button></a>
- 								</td>
-								
-											
-							</tr>
-						</tbody>
-					       
-					</table>
-  						
+	<div class="container page-padding">
+		<h2>Lihat Penanganan</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+                        Lihat Penanganan
+                    </div>
+                    <div class="card-body">
+						
+						<div class="row form-group">
+							<label class="col-sm-4">Nama Pasien</label>
+							<p th:text="${pasien.nama}" name="namaPasien"></p>
+						</div>
+						<div class="row form-group">
+							<label class="col-sm-4">Nama Dokter</label>
+							<p th:text="${dokter.nama}" name="namaDokter"></p>
+						</div>
+						<div class="row form-group">
+							<label class="col-sm-4">Waktu</label>
+							<p th:text="${pemeriksaan.waktu}" name="waktu"></p>
+						</div>
+                        <div class="row form-group">
+							<label class="col-sm-4">Deskripsi</label>
+							<p th:text=" ${pemeriksaan.deskripsi}" name="deskripsi"></p>
+						</div>
+						 <div class="row form-group">
+							<label class="col-sm-4">Obat</label>
+							<p th:text=" ${pemeriksaan.Obat}" name="obat"></p>
+						</div>
+						 <div class="row form-group">
+							<label class="col-sm-4">Kuantitas</label>
+							<p th:text=" ${pemeriksaan.kuantitas}" name="kuantitas"></p>
+						</div>
+						<div>
+							<a th:href="@{/penanganan/}+${pasien.id}+'/'+${pemeriksaan.id}"><button>Ubah</button></a>
+						</div>
 					</div>
 				</div>
 			</div>
-	</body>
+		</div>
+	</div>
 </body>
 </html>
