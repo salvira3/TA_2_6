@@ -16,12 +16,20 @@
                 <th>Nama Dokter</th>
                 <th>Paviliun</th>
                 <th>Jadwal</th>
+                <th>Action</th>
             </thead>
             <tbody>
-                <tr th:each="dokter:${listOfDokter}">
-                    <td th:text="${dokter.nama}">Gandi Karman Mangunsong</td>
-                    <td>Paviliun 1</td>
-                    <td>list of tanggal ( pop up )</td>
+                <tr th:each="jadwalJaga:${listOfJadwalJaga}">
+                    <td th:text="${jadwalJaga.dokter.nama}">Gandi Karman Mangunsong</td>
+                    <td th:text="${jadwalJaga.paviliun} != null ? ${jadwalJaga.paviliun} :'Paviliun Tidak Ada'"></td>
+                    <td>Tidak Ada Jadwal</td>
+                    <td>
+                        <form th:action="@{/jadwal-jaga/update}">
+                            <input type="hidden" name="idDokter" th:value="${jadwalJaga.dokter.id}">
+                            <input type="hidden" name="namaDokter" th:value="${jadwalJaga.dokter.nama}">
+                            <button class="btn btn-primary" type="submit">Tambah Jadwal</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

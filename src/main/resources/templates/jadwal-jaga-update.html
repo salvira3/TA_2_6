@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Request Obat</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h2>Tambah Jadwal Jaga <span th:text="${namaDokter}"></span></h2>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/jadwal-jaga/update}" method="POST">
+                <div class="form-group row">
+                    <input class="form-control" id="idDokter" type="hidden" name="idDokter" placeholder="id Dokter"/>
+                </div>
+                <div class="form-group row">
+                    <label for="idPaviliun" class="col-sm-2 col-form-label">Paviliun</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="paviliun" id="idPaviliun">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="tanggalJaga" class="col-sm-2 col-form-label">Tanggal Jaga</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="namaMedicalSupplies" type="date" name="tanggalJaga" placeholder="tanggal jaga"/>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Tambah Jadwal</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
