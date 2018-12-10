@@ -25,5 +25,16 @@ public class PemeriksaanServiceImpl implements PemeriksaanService {
 		}
 		return tmp;
 	}
-
+		public void updatePenanganan(long idPasien, PemeriksaanModel newPemeriksaan) {
+		PemeriksaanModel temp = getPemeriksaanDetailByIdPasien(idPasien);
+		temp.setIdDokter(newPemeriksaan.getIdDokter());
+		temp.setDeskripsi(newPemeriksaan.getDeskripsi());
+		temp.setWaktu(newPemeriksaan.getWaktu());
+		
+		pemeriksaanDb.save(temp);
+	}
+		
+		
+		
+	
 }
