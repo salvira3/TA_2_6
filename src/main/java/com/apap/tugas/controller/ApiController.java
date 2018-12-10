@@ -86,6 +86,11 @@ public class ApiController {
 			System.out.println(pasienMasuk.getId()+"<-pasienMasuk getId");
 			String path = "http://si-appointment.herokuapp.com/api/2/updatePasien";
 			PasienModel pasienUpdate = getPasienDataFromApi(pasienMasuk.getId());
+			if (pasienUpdate.getStatusPasien().getId() == 4 || pasienUpdate.getStatusPasien().getId() == 5) {
+				response.setStatus(403);
+				response.setMessage("status pasien sudah mendaftar atau sudah berada di rawat inap");
+				return response;
+			}
 			pasienUpdate.getStatusPasien().setId(4);
 			pasienUpdate.getStatusPasien().setJenis("Mendaftar di Rawat Inap");
 			BaseResponse updated = restTemplate.postForObject(path, pasienUpdate, BaseResponse.class);
