@@ -66,7 +66,7 @@ public class ApiController {
 				return response;
 			}
 		}
-		if (bindingResult.hasErrors()) { 
+		if (pasienMasuk.equals(null) || pasienMasuk.getId() <= 0) { 
 			System.out.println("binding");
 			response.setStatus(500);
 			List<ObjectError> errorku = bindingResult.getAllErrors();
