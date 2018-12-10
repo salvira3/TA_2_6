@@ -76,11 +76,12 @@ hr {
 	
     <label for="paviliun"><b>Paviliun</b></label>
     <select class="form-control" name="idPaviliun" id="paviliun">
+    <option disabled selected>Pilih Paviliun</option>
 	<option th:each="paviliun : ${paviliun}" th:value="${paviliun.id}" th:text="${paviliun.namaPaviliun}"></option>
 	</select>
     <label for="kamar"><b>Kamar</b></label>
     <select class="form-control" name="idKamar" id="kamar">
-		<option th:each="kamar : ${kamar}" th:value="${kamar.id}" th:text="'Kamar nomor '+${kamar.id}"></option>
+		<option disabled selected>Pilih Kamar</option>
 	</select>
  	<br>
     <button type="submit" class="registerbtn">Tambah</button>

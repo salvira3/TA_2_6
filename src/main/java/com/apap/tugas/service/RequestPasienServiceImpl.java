@@ -1,5 +1,6 @@
 package com.apap.tugas.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -20,6 +21,18 @@ public class RequestPasienServiceImpl implements RequestPasienService{
 	public List<RequestPasienModel> getAll() {
 		// TODO Auto-generated method stub
 		return requestPasienDb.findAll();
+	}
+
+	@Override
+	public List<RequestPasienModel> getPasienAssigned() {
+		// TODO Auto-generated method stub
+		List<RequestPasienModel> pasienAssigned = new ArrayList<RequestPasienModel>();
+		for(RequestPasienModel e: requestPasienDb.findAll()) {
+			if(e.getAssignStatus()==1) {
+				pasienAssigned.add(e);
+			}
+		}
+		return pasienAssigned;
 	}
 
 }
