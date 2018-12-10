@@ -37,10 +37,10 @@
 				<br>
 				<div class="card">
 					<div class="card-header">Lihat Data Penanganan Pasien Berdasarkan ID</div>
-					<form th:action="@{/penanganan/{idPasien}(idPasien=${idPasien})}" th:method="GET">
+					<form th:action="@{/penanganan/}+ ${idPasien}" th:method="GET">
 						<div class="card-body">
-							<label for="idPasien">Masukkan ID Pasien</label> <input
-								type="text" name="idPasien" class="form-control" />
+							<label for="idPasien">Masukkan ID Pasien</label> 
+							<input type="text" name="idPasien" class="form-control" />
 							<button type="submit" class="btn btn-primary btn-succcess">Lihat</button>
 						</div>
 					</form>

@@ -17,17 +17,17 @@
 					<div class="container">
 						<form th:action="@{/penanganan/insert}" th:object="${pemeriksaan}" method ="POST">
 							<div class="form-group">
-  							<label for="dokter">Dokter</label>
-								<select  class="form-control" required="required" name="idDokter" th:value="${dokter}">
-									<option disabled selected>Pilih Dokter</option>
-						      		<option th:each="dokter : ${dokter}" th:value="${dokter.id}" th:text="${dokter.nama}"></option>
-						    	</select>
-							</div>
-							<div class="form-group">
   							<label for="pasien">Pasien</label>
 								<select  class="form-control" required="required" name="idPasien" th:value="${pasien}">
 									<option disabled selected>Pilih Pasien</option>
 						      		<option th:each="pasien : ${pasien}" th:value="${pasien.id}" th:text="${pasien.nama}"></option>
+						    	</select>
+							</div>
+							<div class="form-group">
+  							<label for="dokter">Dokter</label>
+								<select  class="form-control" required="required" name="idDokter" th:value="${dokter}">
+									<option disabled selected>Pilih Dokter</option>
+						      		<option th:each="dokter : ${dokter}" th:value="${dokter.id}" th:text="${dokter.nama}"></option>
 						    	</select>
 							</div>
 							<div class="form-group">
@@ -39,8 +39,12 @@
     						<input class="form-control" name="deskripsi" th:value="*{deskripsi}" aria-describedby="emailHelp" required="required" placeholder="Isi Deskripsi">
   							</div>
   							<div class="form-group">
-    						<label for="deskripsi">Obat</label>
+    						<label for="obat">Obat</label>
     						<input class="form-control" name="obat" th:value="*{obat}" aria-describedby="emailHelp" placeholder="Isi Obat">
+  							</div>
+  							<div class="form-group">
+    						<label for="kuantitas">Kuantitas</label>
+    						<input class="form-control" name="kuantitas" th:value="*{kuantitas}" aria-describedby="emailHelp" placeholder="Isi Kuantitas Obat">
   							</div>
   							<div class="form-group">
   							<button type="submit" class="btn btn-success btn-rounded">Submit</button>

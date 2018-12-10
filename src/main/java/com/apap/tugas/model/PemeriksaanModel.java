@@ -40,6 +40,17 @@ public class PemeriksaanModel implements Serializable{
 	@Column(name = "obat", nullable = true)
 	private String obat;
 	
+	@Column(name = "kuantitas", nullable = true)
+	private Integer kuantitas;
+	
+	public Integer getKuantitas() {
+		return kuantitas;
+	}
+
+	public void setKuantitas(Integer kuantitas) {
+		this.kuantitas = kuantitas;
+	}
+
 	public String getObat() {
 		return obat;
 	}

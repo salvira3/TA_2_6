@@ -12,14 +12,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.apap.tugas.model.DokterModel;
+import com.apap.tugas.model.MedicalSuppliesModel;
 import com.apap.tugas.model.ObatModel;
 import com.apap.tugas.model.PasienModel;
 import com.apap.tugas.model.PemeriksaanModel;
+import com.apap.tugas.model.RequestObatModel;
 import com.apap.tugas.rest.BaseResponse;
+import com.apap.tugas.rest.Setting;
 import com.apap.tugas.service.PemeriksaanService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,13 +64,27 @@ public class PemeriksaanController {
 		System.out.println(pemeriksaan.getIdDokter());
 		ObatModel obat = new ObatModel();
 		obat.setNama(pemeriksaan.getObat());
-		String path = "http://si-farmasi-ocir.herokuapp.com/api/medical-supplies/permintaan";
-		BaseResponse insert = restTemplate.postForObject(path, obat, BaseResponse.class);
-		System.out.println(insert.getResult());
+		MedicalSuppliesModel med = new MedicalSuppliesModel();
+		med.setMedicalSupplies(obat);
+		ArrayList<MedicalSuppliesModel> medSupp = new ArrayList<MedicalSuppliesModel>();
+		medSupp.add(med);
+		RequestObatModel reqObat = new RequestObatModel();
+		reqObat.setJumlahMedicalSupplies(pemeriksaan.getKuantitas());
+		reqObat.setIdPasien(pemeriksaan.getIdPasien());
+		reqObat.setListPermintaanMedicalSupplies(medSupp);
+		String path = Setting.requestObatUrl;
+		BaseResponse insert = restTemplate.postForObject(path, reqObat, BaseResponse.class);
+		System.out.println("result" + insert.getResult());
 		pemeriksaanService.add(pemeriksaan);
 		ModelAndView tmp = new ModelAndView("redirect:/penanganan/" + pemeriksaan.getIdPasien()); 
 		return tmp;
 	}
+	
+//	@RequestMapping(value= "/penanganan", method= RequestMethod.GET)
+//	private ModelAndView penanganan(@RequestParam(value="idPasien") long idPasien) {
+//		ModelAndView tmp = new ModelAndView("redirect:/penanganan/" + idPasien); 
+//		return tmp;
+//	}
 	
 	@RequestMapping(value = "/penanganan/{idPasien}", method = RequestMethod.GET)
 	private String penangananPasien(@PathVariable (value ="idPasien") long idPasien , Model model) throws IOException {
