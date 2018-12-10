@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <title>Daftar Pasien</title>
+	<object th:include="fragments/fragment :: metas" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+       	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+       	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js}"></script>
+       	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+       	<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+
+    <div class="container page-padding">
+    	<p th:text="${msg}" style="color:red"></p>
+        <h2>Daftar Pasien Rawat Inap</h2>
+        <div class="row">
+        	<div class="card-body">
+					<table id="table_id2" class="display table table-striped" border = "I"  >
+					    <thead>
+					        <tr style = center>
+					        	<th>ID Pasien</th>
+					            <th>Nama Pasien</th>
+					            <th>Paviliun</th>
+					            <th>Nomor Kamar</th>
+					            <th>Status Pasien</th>
+					        </tr>
+					    </thead>
+					    
+						 <tbody>
+							<tr th:each="listPasien, iterationStatus : ${listPasien}">
+								<input type="hidden" th:value="${listPasien.key.id}" name="idPasien">
+								<td th:text="${listPasien.key.id}" name="idPasien"></td>
+								<td th:text="${listPasien.key.nama}"></td>
+								<td th:text="${listPasien.value.paviliun.namaPaviliun}"></td>
+ 								<td th:text="${listPasien.value.id}"></td>
+								<td ><a th:href="@{/daftar-pasien/pulang/{idKamar}(idKamar=${listPasien.value.id})}"><button class="btn btn-success">Pulang</button></a></td>
+								</td>			
+							</tr>
+						</tbody>
+					       
+					</table>
+				</div>
+        </div>
+        
+    </div>
 </body>
 </html>

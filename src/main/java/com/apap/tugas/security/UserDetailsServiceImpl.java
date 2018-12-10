@@ -3,6 +3,8 @@ package com.apap.tugas.security;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +18,7 @@ import com.apap.tugas.model.UserRoleModel;
 import com.apap.tugas.repository.UserRoleDb;
 
 @Service
+@Transactional
 public class UserDetailsServiceImpl implements UserDetailsService{
 
 	

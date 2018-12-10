@@ -24,6 +24,7 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<div class="container page-padding">
+	
 		<div th:switch="${message}">
 		    <div th:case="'addKamar'">
 		    	<div class="alert">
