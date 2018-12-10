@@ -163,6 +163,7 @@ public class PasienController {
 		pasienUpdate.getStatusPasien().setId(6);
 		pasienUpdate.getStatusPasien().setJenis("Selesai di Rawat Inap");
 		BaseResponse updated = restTemplate.postForObject(path, pasienUpdate, BaseResponse.class);
+		System.out.println(updated.getResult());
 		String msg = "Pasien " + pasienUpdate.getNama() + " berhasil dipulangkan.";
 		ModelAndView modelAndView = new ModelAndView("redirect:/daftar-ranap");
 		redir.addFlashAttribute("msg", msg);

@@ -16,8 +16,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.apap.tugas.model.DokterModel;
+import com.apap.tugas.model.ObatModel;
 import com.apap.tugas.model.PasienModel;
 import com.apap.tugas.model.PemeriksaanModel;
+import com.apap.tugas.rest.BaseResponse;
 import com.apap.tugas.service.PemeriksaanService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,7 +43,8 @@ public class PemeriksaanController {
 		List<PasienModel> listPasien = getAllPasienDataFromApi();
 		List<PasienModel> listPasienRanap = new ArrayList<PasienModel>();
 		for (PasienModel e: listPasien) {
-			if(e.getStatusPasien().getJenis().equals("Berada di Rawat Inap")) {
+			long tmp = e.getStatusPasien().getId();
+			if(tmp==5) {
 				listPasienRanap.add(e);
 			}
 		}
@@ -55,6 +58,11 @@ public class PemeriksaanController {
 	@RequestMapping(value = "/penanganan/insert", method = RequestMethod.POST)
 	private ModelAndView addPenangananSubmit(@ModelAttribute PemeriksaanModel pemeriksaan, Model model) {
 		System.out.println(pemeriksaan.getIdDokter());
+		ObatModel obat = new ObatModel();
+		obat.setNama(pemeriksaan.getObat());
+		String path = "http://si-farmasi-ocir.herokuapp.com/api/medical-supplies/permintaan";
+		BaseResponse insert = restTemplate.postForObject(path, obat, BaseResponse.class);
+		System.out.println(insert.getResult());
 		pemeriksaanService.add(pemeriksaan);
 		ModelAndView tmp = new ModelAndView("redirect:/penanganan/" + pemeriksaan.getIdPasien()); 
 		return tmp;
