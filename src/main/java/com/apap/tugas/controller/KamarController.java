@@ -41,7 +41,7 @@ public class KamarController {
 		model.addAttribute("listPaviliun" , listPaviliun);
 		List<KamarModel> listKamar = kamarService.getAll();
 		model.addAttribute("listKamar" , listKamar);
-		model.addAttribute("message" , "hidden");
+		//model.addAttribute("message" , "hidden");
 		return "list-kamar";
 	}
 	

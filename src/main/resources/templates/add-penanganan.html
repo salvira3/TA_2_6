@@ -1,0 +1,48 @@
+<head>
+	<title>Add Penanganan</title>
+	
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>	
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+
+			<div class="card border-info mb-3" style="margin:25px;">
+				<div class="card-header" style="text-align:center">
+					 <h3>Tambah Penanganan</h3>
+				</div>
+				<div class="card-body">
+					<div class="container">
+						<form th:action="@{/penanganan/insert}" th:object="${pemeriksaan}" method ="POST">
+							<div class="form-group">
+  							<label for="dokter">Dokter</label>
+								<select  class="form-control" required="required" name="idDokter" th:value="${dokter}">
+									<option disabled selected>Pilih Dokter</option>
+						      		<option th:each="dokter : ${dokter}" th:value="${dokter.id}" th:text="${dokter.nama}"></option>
+						    	</select>
+							</div>
+							<div class="form-group">
+  							<label for="pasien">Pasien</label>
+								<select  class="form-control" required="required" name="idPasien" th:value="${pasien}">
+									<option disabled selected>Pilih Pasien</option>
+						      		<option th:each="pasien : ${pasien}" th:value="${pasien.id}" th:text="${pasien.nama}"></option>
+						    	</select>
+							</div>
+							<div class="form-group">
+    						<label for="waktu">Tanggal Penanganan</label>
+    						<input type="date" class="form-control" name="waktu" th:value="*{waktu}" aria-describedby="emailHelp" required="required" placeholder="Enter tanggal Penanganan">
+  							</div>
+  							<div class="form-group">
+    						<label for="deskripsi">Deskripsi</label>
+    						<input class="form-control" name="deskripsi" th:value="*{deskripsi}" aria-describedby="emailHelp" required="required" placeholder="Isi Deskripsi">
+  							</div>
+  							<button type="submit" class="btn btn-success btn-rounded">Submit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+	</body>
+</body>
+</html>

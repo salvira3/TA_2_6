@@ -1,11 +1,10 @@
 package com.apap.tugas.controller;
 
 import com.apap.tugas.configuration.Config;
-import com.apap.tugas.model.ObatModel;
+import com.apap.tugas.model.RequestObatModel;
 import com.apap.tugas.rest.BaseResponse;
 import com.apap.tugas.rest.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +27,8 @@ public class ObatController {
     }
 
     @RequestMapping(value = "/request",method = RequestMethod.POST)
-    public String submitRequestObat(@ModelAttribute ObatModel obat) {
-        String path = Setting.requestObatUrl + "/obat/request";
+    public String submitRequestObat(@ModelAttribute RequestObatModel obat) {
+        String path = Setting.requestObatUrl;
         BaseResponse response = restTemplate.postForObject(path,obat, BaseResponse.class);
         System.out.println(response.getMessage() + response.getStatus() + response.getResult());
         return "obat-request";

@@ -25,5 +25,10 @@ public class PemeriksaanServiceImpl implements PemeriksaanService {
 		}
 		return tmp;
 	}
+	@Override
+	public void add(PemeriksaanModel pemeriksaan) {
+		// TODO Auto-generated method stub
+		pemeriksaanDb.save(pemeriksaan);
+	}
 
 }
